@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whispher Pro</title>
+  <style>
+    :root {
+      --primary-color: #3b82f6;
+      --primary-hover: #2563eb;
+      --accent-color: #f43f5e;
+      --accent-hover: #e11d48;
+      --success-color: #10b981;
+      --error-color: #ef4444;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --transition: all 0.2s ease;
+      
+      /* New premium UI colors */
+      --premium-bg: #fcfcfd;
+      --premium-accent: #6366f1;
+      --premium-accent-hover: #4f46e5;
+      --premium-text: #1e293b; 
+      --premium-text-light: #64748b;
+      --premium-border: #e2e8f0;
+      --premium-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+      --premium-gradient: linear-gradient(135deg, #6366f1, #4f46e5);
+      --premium-success: #059669;
+      --premium-record: #ef4444;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: transparent;
+      overflow: hidden;
+    }
+    
+    /* Main app wrapper */
+    .app-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background-color: transparent; /* Remove the yellow debug background */
+      border: none; /* Remove the red dashed border */
+      -webkit-app-region: no-drag;
+    }
+
+    /* Main Mic Button Container - Premium Redesign */
+    .mic-container {
+      width: 84px;
+      height: 84px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      -webkit-app-region: drag;
+      border-radius: 50%;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+      margin: auto;
+      cursor: move;
+      box-shadow: 
+        0 0 0 1px rgba(99, 102, 241, 0.25),
+        0 0 0 2px rgba(99, 102, 241, 0.15),
+        0 8px 16px rgba(0, 0, 0, 0.08),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 9997;
+    }
+    
+    /* When actively dragging, enhance the container */
+    .mic-container.dragging {
+      cursor: grabbing !important;
+      transform: scale(1.03);
+      box-shadow: 
+        0 0 0 1px rgba(99, 102, 241, 0.35),
+        0 0 0 3px rgba(99, 102, 241, 0.25),
+        0 12px 24px rgba(0, 0, 0, 0.12),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.1));
+    }
+    
+    /* Hover effect for the container */
+    .mic-container:hover {
+      transform: scale(1.02);
+      box-shadow: 
+        0 0 0 1px rgba(99, 102, 241, 0.3),
+        0 0 0 2px rgba(99, 102, 241, 0.2),
+        0 10px 20px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.09));
+    }
+    
+    /* Enhanced corner indicators - more subtle and premium */
+    .corner-indicator {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.8), rgba(79, 70, 229, 0.6));
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      z-index: 3;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      animation: corner-pulse 3s ease infinite;
+      box-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
+    }
+    
+    /* Updated corner positions with better spacing */
+    .corner-top-left {
+      top: 4px;
+      left: 4px;
+      border-top-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+      animation-delay: 0s;
+    }
+    
+    .corner-top-right {
+      top: 4px;
+      right: 4px;
+      border-top-right-radius: 3px;
+      border-bottom-left-radius: 3px;
+      animation-delay: 0.75s;
+    }
+    
+    .corner-bottom-left {
+      bottom: 4px;
+      left: 4px;
+      border-bottom-left-radius: 3px;
+      border-top-right-radius: 3px;
+      animation-delay: 1.5s;
+    }
+    
+    .corner-bottom-right {
+      bottom: 4px;
+      right: 4px;
+      border-bottom-right-radius: 3px;
+      border-top-left-radius: 3px;
+      animation-delay: 2.25s;
+    }
+    
+    /* Enhanced corner pulse animation */
+    @keyframes corner-pulse {
+      0% {
+        transform: scale(1);
+        opacity: 0.7;
+        box-shadow: 0 0 4px rgba(99, 102, 241, 0.3);
+      }
+      50% {
+        transform: scale(1.15);
+        opacity: 0.9;
+        box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0.7;
+        box-shadow: 0 0 4px rgba(99, 102, 241, 0.3);
+      }
+    }
+    
+    /* Add a subtle premium glow ring around the container */
+    .mic-container::after {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, 
+        rgba(99, 102, 241, 0.15) 0%,
+        rgba(99, 102, 241, 0.08) 50%,
+        rgba(99, 102, 241, 0) 70%
+      );
+      pointer-events: none;
+      z-index: 1;
+      animation: glow-pulse 4s ease infinite;
+    }
+    
+    @keyframes glow-pulse {
+      0% {
+        opacity: 0.6;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.9;
+        transform: scale(1.06);
+      }
+      100% {
+        opacity: 0.6;
+        transform: scale(1);
+      }
+    }
+    
+    /* Enhanced drag handle with premium look */
+    .mic-container::before {
+      display: none; /* Hide the drag handle dash */
+    }
+    
+    .mic-container:hover::before {
+      display: none; /* Hide on hover as well */
+    }
+    
+    .mic-container.dragging::before {
+      display: none; /* Hide when dragging */
+    }
+    
+    /* Enhanced tooltip with premium style */
+    .tooltip {
+      position: absolute;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.9));
+      color: white;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+      z-index: 100;
+      top: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+      pointer-events: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    
+    /* Add tooltip arrow */
+    .tooltip::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid rgba(15, 23, 42, 0.9);
+    }
+    
+    .mic-container:hover .tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-2px);
+    }
+    
+    /* Premium modern mic button */
+    .mic-button {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--premium-gradient);
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3), 
+                  inset 0 1px 2px rgba(255, 255, 255, 0.4);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      z-index: 10;
+      -webkit-app-region: no-drag;
+      overflow: hidden;
+    }
+    
+    /* Add shine effect to the button */
+    .mic-button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: skewX(-25deg);
+      transition: all 0.75s ease;
+    }
+    
+    .mic-button:hover::after {
+      left: 150%;
+    }
+    
+    /* Enhanced hover effect */
+    .mic-button:hover {
+      transform: translateY(-2px) scale(1.03);
+      background: linear-gradient(135deg, #6366f1, #4338ca);
+      box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4), 
+                  inset 0 1px 2px rgba(255, 255, 255, 0.5);
+    }
+    
+    .mic-button:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3), 
+                  inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    }
+    
+    /* Enhanced icon styling */
+    .mic-icon, .copy-icon, .success-icon {
+      transition: all 0.3s ease;
+    }
+    
+    /* Enhanced recording state */
+    .mic-button.recording {
+      background: linear-gradient(135deg, var(--premium-record), #dc2626);
+      animation: recording-pulse 1.5s infinite;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4), 
+                  inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    }
+    
+    @keyframes recording-pulse {
+      0% {
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4),
+                    inset 0 1px 2px rgba(255, 255, 255, 0.3),
+                    0 0 0 0 rgba(239, 68, 68, 0.7);
+      }
+      70% {
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4),
+                    inset 0 1px 2px rgba(255, 255, 255, 0.3),
+                    0 0 0 15px rgba(239, 68, 68, 0);
+      }
+      100% {
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4),
+                    inset 0 1px 2px rgba(255, 255, 255, 0.3),
+                    0 0 0 0 rgba(239, 68, 68, 0);
+      }
+    }
+    
+    .mic-button.recording:hover {
+      background: linear-gradient(135deg, #e11d48, #be123c);
+      box-shadow: 0 6px 16px rgba(239, 68, 68, 0.5), 
+                  inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    }
+    
+    /* Enhanced icon styling */
+    .mic-icon {
+      width: 24px;
+      height: 24px;
+      fill: white;
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+    }
+    
+    /* Enhanced copy and success icons */
+    .copy-icon, .success-icon {
+      width: 24px;
+      height: 24px;
+      stroke: white;
+      stroke-width: 2.5;
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+    }
+    
+    /* Styling for the copied state */
+    .mic-button.copied {
+      background: linear-gradient(135deg, var(--success-color), var(--premium-success));
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3), 
+                  inset 0 1px 2px rgba(255, 255, 255, 0.4);
+      animation: success-pulse 0.5s ease;
+    }
+    
+    @keyframes success-pulse {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      }
+      70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+      }
+    }
+    
+    .mic-button.copied:hover {
+      background: linear-gradient(135deg, #0d9488, #059669);
+      box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4), 
+                  inset 0 1px 2px rgba(255, 255, 255, 0.5);
+    }
+    
+    /* Styling for the processing state */
+    .mic-button.processing {
+      background: linear-gradient(135deg, var(--premium-accent), #4338ca);
+      animation: processing-pulse 1.5s infinite;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4), 
+                  inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    }
+    
+    @keyframes processing-pulse {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+    
+    /* Create special processing state styles */
+    .mic-button.processing {
+      background-size: 200% 200%;
+      background-image: linear-gradient(
+        135deg, 
+        #4338ca 0%, 
+        #6366f1 25%, 
+        #818cf8 50%,
+        #6366f1 75%, 
+        #4338ca 100%
+      );
+    }
+    
+    /* Status Indicator - hidden completely */
+    .status-indicator {
+      display: none;
+    }
+    
+    /* Settings Panel - Modern Polished Design */
+    .settings-panel,
+    .text-preview-panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--premium-bg);
+      box-shadow: none;
+      z-index: 9999;
+      padding: 0;
+      opacity: 0;
+      visibility: hidden;
+      -webkit-app-region: drag;
+      overflow: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    
+    .settings-panel.visible,
+    .text-preview-panel.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* Text preview panel animation */
+    .text-preview-panel.visible .text-preview-header {
+      animation: slideDown 0.4s ease-out;
+    }
+    
+    .text-preview-panel.visible .text-display {
+      animation: fadeIn 0.5s 0.1s ease-out both;
+    }
+    
+    @keyframes slideDown {
+      from {
+        transform: translateY(-10px);
+        opacity: 0.5;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    
+    /* Sleek Modern Header */
+    .settings-header,
+    .text-preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 16px;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: white;
+      -webkit-app-region: drag;
+      cursor: move;
+      height: 36px;
+      position: relative;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Enhanced text preview header with premium gradient */
+    .text-preview-header {
+      background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+      /* Add subtle pattern overlay for texture */
+      background-image: 
+        linear-gradient(135deg, rgba(0, 0, 0, 0.02) 25%, transparent 25%),
+        linear-gradient(225deg, rgba(0, 0, 0, 0.02) 25%, transparent 25%),
+        linear-gradient(315deg, rgba(0, 0, 0, 0.02) 25%, transparent 25%),
+        linear-gradient(45deg, rgba(0, 0, 0, 0.02) 25%, transparent 25%);
+      background-size: 20px 20px;
+      padding: 0 18px;
+      height: 48px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Window info - positioned for visibility */
+    .window-info {
+      display: none; /* Hide this element completely */
+    }
+    
+    .settings-title {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      position: relative;
+      padding-left: 12px;
+    }
+    
+    /* Modern accent bar */
+    .settings-title::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 14px;
+      background: var(--primary-color);
+      border-radius: 2px;
+    }
+    
+    .close-settings {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      font-size: 16px;
+      color: white;
+      -webkit-app-region: no-drag;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      cursor: pointer !important;
+    }
+    
+    .close-settings:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    /* Settings Content - Clean Design */
+    .settings-content,
+    .text-preview-content {
+      -webkit-app-region: no-drag;
+      width: 100%;
+      height: calc(100% - 32px);
+      padding: 6px 0 0 0;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Updated text preview content */
+    .text-preview-content {
+      height: calc(100% - 48px); /* Adjusted for larger header */
+      background-color: var(--premium-bg);
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Form Groups - Card-based Design */
+    .form-group {
+      background: white;
+      margin: 0 6px 6px 6px;
+      padding: 12px;
+      border-radius: 6px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+      animation: none;
+    }
+    
+    .form-group:last-of-type {
+      margin-bottom: 60px; /* Make space for Save button */
+    }
+    
+    .form-group label {
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .form-group input[type="password"],
+    .form-group select {
+      width: 100%;
+      padding: 6px 10px;
+      font-size: 13px;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      box-sizing: border-box;
+      height: 34px;
+      background: #f8fafc;
+      transition: border-color 0.15s ease;
+    }
+    
+    .form-group input[type="password"]:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.2);
+    }
+    
+    .hint-text {
+      font-size: 10px;
+      color: #64748b;
+      margin-top: 6px;
+      line-height: 1.3;
+    }
+    
+    /* Modern Save Button with Visual Feedback */
+    .save-button {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      -webkit-app-region: no-drag;
+      height: 40px;
+      box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color 0.2s ease;
+    }
+    
+    /* Add save icon */
+    .save-button::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 13l4 4L19 7'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+    
+    .save-button:hover {
+      background: var(--primary-hover);
+    }
+    
+    .save-button:active {
+      transform: translateY(1px);
+    }
+    
+    /* Custom Select Styling */
+    .form-group select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      background-size: 16px;
+      padding-right: 30px;
+    }
+    
+    /* Input focus styles for better UX */
+    .form-group input:focus::placeholder {
+      color: #94a3b8;
+    }
+    
+    /* Custom placeholder styling */
+    .form-group input::placeholder {
+      color: #cbd5e1;
+      font-style: italic;
+    }
+    
+    /* Password field styling */
+    .form-group input[type="password"] {
+      font-family: monospace;
+      letter-spacing: 1px;
+    }
+    
+    /* Clean Scrollbar */
+    .settings-content::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    .settings-content::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    .settings-content::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    
+    /* Option highlighting in select boxes */
+    .form-group select option:hover,
+    .form-group select option:focus,
+    .form-group select option:active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    /* Special styling for auto-copy hint */
+    .form-group:last-of-type .hint-text {
+      padding-bottom: 4px;
+    }
+    
+    /* Text Preview Specific Styles - PREMIUM REDESIGN */
+    .text-preview-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      position: relative;
+      padding-left: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #000000;
+      text-shadow: none;
+    }
+    
+    .text-preview-title::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 18px;
+      background: #4338ca;
+      border-radius: 2px;
+      box-shadow: 0 0 5px rgba(67, 56, 202, 0.3);
+    }
+    
+    /* Enhanced status indicator */
+    .preview-status {
+      font-size: 11px;
+      font-weight: 600;
+      color: #000000;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 3px 10px;
+      border-radius: 12px;
+      margin-left: 12px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      text-shadow: none;
+    }
+    
+    /* Updated status styles */
+    .preview-status.recording {
+      background-color: rgba(239, 68, 68, 0.2);
+      color: #000000;
+      animation: pulse 1.5s infinite;
+    }
+    
+    .preview-status.processing {
+      background-color: rgba(59, 130, 246, 0.2);
+      color: #000000;
+    }
+    
+    /* Add a success style for when text is copied */
+    .preview-status.copied {
+      background-color: rgba(16, 185, 129, 0.2);
+      color: #000000;
+      animation: fadeEffect 2s ease-in-out;
+    }
+    
+    @keyframes fadeEffect {
+      0% { opacity: 0.7; transform: scale(0.98); }
+      50% { opacity: 1; transform: scale(1.02); }
+      100% { opacity: 0.7; transform: scale(1); }
+    }
+    
+    /* Enhanced header buttons */
+    .preview-buttons {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .preview-button {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      font-size: 14px;
+      color: #000000;
+      -webkit-app-region: no-drag;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      cursor: pointer !important;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .preview-button svg {
+      filter: none;
+      width: 18px;
+      height: 18px;
+      stroke-width: 2px;
+    }
+    
+    .preview-button:hover {
+      background: rgba(255, 255, 255, 0.95);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    }
+    
+    .preview-button:active {
+      transform: translateY(1px);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Premium text display area */
+    .text-display {
+      background: white;
+      margin: 16px;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      flex: 1;
+      overflow-y: auto;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--premium-text);
+      min-height: 200px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    /* Add subtle inset shadow to text area */
+    .text-display::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      border-radius: 12px;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Enhanced scrollbar for text display */
+    .text-display::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .text-display::-webkit-scrollbar-track {
+      background: transparent;
+      margin: 4px 0;
+    }
+    
+    .text-display::-webkit-scrollbar-thumb {
+      background: #e2e8f0;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
+    
+    .text-display::-webkit-scrollbar-thumb:hover {
+      background: #cbd5e1;
+    }
+    
+    /* Premium action buttons */
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      padding: 0 16px 16px 16px;
+      justify-content: space-between;
+    }
+    
+    /* Style for button icons */
+    .button-icon {
+      margin-right: 8px;
+      position: relative;
+      top: -1px;
+    }
+    
+    .action-button {
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      -webkit-app-region: no-drag;
+      flex: 1;
+      letter-spacing: 0.3px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Add subtle shine effect to buttons */
+    .action-button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: skewX(-25deg);
+      transition: all 0.75s ease;
+    }
+    
+    .action-button:hover::after {
+      left: 150%;
+    }
+    
+    .action-button.primary {
+      background: var(--premium-gradient);
+      color: white;
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+    }
+    
+    .action-button.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    }
+    
+    .action-button.primary:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 6px rgba(99, 102, 241, 0.3);
+    }
+    
+    .action-button.primary.record {
+      background: linear-gradient(135deg, var(--premium-record), #dc2626);
+      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+    }
+    
+    .action-button.primary.record:hover {
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    }
+    
+    .action-button.primary.record:active {
+      box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);
+    }
+    
+    .action-button.copy {
+      background: linear-gradient(135deg, var(--success-color), var(--premium-success));
+      color: white;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    }
+    
+    .action-button.copy:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    }
+    
+    .action-button.copy:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+    }
+    
+    .action-button.clear {
+      background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+      color: var(--premium-text);
+      border: 1px solid var(--premium-border);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+    
+    .action-button.clear:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #f9fafb, #f8fafc);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+    
+    .action-button.clear:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Pulse animation for recording button */
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+      }
+    }
+    
+    .action-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+    
+    /* Add subtle animations to action buttons */
+    @keyframes buttonAppear {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .action-buttons .action-button:nth-child(1) {
+      animation: buttonAppear 0.3s 0.1s ease-out both;
+    }
+    
+    .action-buttons .action-button:nth-child(2) {
+      animation: buttonAppear 0.3s 0.2s ease-out both;
+    }
+    
+    .action-buttons .action-button:nth-child(3) {
+      animation: buttonAppear 0.3s 0.3s ease-out both;
+    }
+    
+    /* Add label to empty text display */
+    .text-display:empty::before {
+      content: 'Your transcription will appear here...';
+      color: var(--premium-text-light);
+      font-style: italic;
+      opacity: 0.7;
+    }
+    
+    /* Animation for text appearing */
+    @keyframes textAppear {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .text-display:not(:empty) {
+      animation: textAppear 0.5s ease-out;
+    }
+
+    /* Add subtle state transition animation */
+    @keyframes state-transition {
+      0% {
+        transform: scale(0.9);
+        opacity: 0.7;
+      }
+      50% {
+        transform: scale(1.08);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .mic-button.state-changing {
+      animation: state-transition 0.3s ease-out;
+    }
+  </style>
+</head>
+<body>
+  <!-- Main wrapper -->
+  <div class="app-wrapper">
+    <!-- Main Mic Button with draggable container -->
+    <div class="mic-container">
+      <!-- Tooltip for drag indication -->
+      <div class="tooltip">Drag to move</div>
+      
+      <!-- Corner indicators for drag areas -->
+      <div class="corner-indicator corner-top-left"></div>
+      <div class="corner-indicator corner-top-right"></div>
+      <div class="corner-indicator corner-bottom-left"></div>
+      <div class="corner-indicator corner-bottom-right"></div>
+      
+      <button id="micButton" class="mic-button">
+        <!-- Mic Icon (Default State) - Premium version -->
+        <svg class="mic-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 15.5C14.21 15.5 16 13.71 16 11.5V6C16 3.79 14.21 2 12 2C9.79 2 8 3.79 8 6V11.5C8 13.71 9.79 15.5 12 15.5Z" fill="currentColor"/>
+          <path d="M4.75 11.5C4.75 11.0858 4.41421 10.75 4 10.75C3.58579 10.75 3.25 11.0858 3.25 11.5C3.25 15.5 6.286 18.7055 10.25 19.1997V21.25H7C6.58579 21.25 6.25 21.5858 6.25 22C6.25 22.4142 6.58579 22.75 7 22.75H17C17.4142 22.75 17.75 22.4142 17.75 22C17.75 21.5858 17.4142 21.25 17 21.25H13.75V19.1997C17.714 18.7055 20.75 15.5 20.75 11.5C20.75 11.0858 20.4142 10.75 20 10.75C19.5858 10.75 19.25 11.0858 19.25 11.5C19.25 14.9518 16.4518 17.75 13 17.75H11C7.54822 17.75 4.75 14.9518 4.75 11.5Z" fill="currentColor"/>
+          <!-- Add subtle highlight effect to mic -->
+          <path d="M12 15.5C14.21 15.5 16 13.71 16 11.5V6C16 3.79 14.21 2 12 2C9.79 2 8 3.79 8 6V11.5C8 13.71 9.79 15.5 12 15.5Z" fill="url(#micHighlight)" fill-opacity="0.4"/>
+          <defs>
+            <linearGradient id="micHighlight" x1="8" y1="2" x2="16" y2="15.5" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="white" stop-opacity="0.7"/>
+              <stop offset="100%" stop-color="white" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        
+        <!-- Copy Icon (Hidden by default) - Premium version -->
+        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none; width:24px; height:24px;">
+          <path d="M16 12.9V17.1C16 20.6 14.6 22 11.1 22H6.9C3.4 22 2 20.6 2 17.1V12.9C2 9.4 3.4 8 6.9 8H11.1C14.6 8 16 9.4 16 12.9Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22 6.9V11.1C22 14.6 20.6 16 17.1 16H16V12.9C16 9.4 14.6 8 11.1 8H8V6.9C8 3.4 9.4 2 12.9 2H17.1C20.6 2 22 3.4 22 6.9Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M16 12.9V17.1C16 20.6 14.6 22 11.1 22H6.9C3.4 22 2 20.6 2 17.1V12.9C2 9.4 3.4 8 6.9 8H11.1C14.6 8 16 9.4 16 12.9Z" stroke="url(#copyHighlight)" stroke-opacity="0.4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="copyHighlight" x1="2" y1="8" x2="16" y2="22" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="white" stop-opacity="0.7"/>
+              <stop offset="100%" stop-color="white" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        
+        <!-- Success Checkmark (Hidden by default) - Premium version -->
+        <svg class="success-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none; width:24px; height:24px;">
+          <path d="M7 13L10 16L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7 13L10 16L17 9" stroke="url(#successHighlight)" stroke-opacity="0.6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="successHighlight" x1="7" y1="9" x2="17" y2="16" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="white" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="white" stop-opacity="0.3"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </button>
+      <!-- Status indicator hidden - using visual mic feedback instead -->
+      <div id="statusIndicator" class="status-indicator" style="display:none">Ready</div>
+      
+      <!-- Settings Button removed - using only double-click on mic now -->
+      </div>
+    </div>
+    
+  <!-- Settings Panel -->
+  <div id="settingsPanel" class="settings-panel">
+    <!-- Drag handle -->
+    <div class="settings-drag-handle"></div>
+    
+    <!-- Settings header (draggable) -->
+    <div class="settings-header">
+      <div class="settings-title">Settings</div>
+      <button id="closeSettingsButton" class="close-settings">×</button>
+    </div>
+    
+    <!-- Settings content (non-draggable) -->
+    <div class="settings-content">
+      <div class="form-group">
+        <label for="apiKeyInput">Groq API Key</label>
+          <input 
+            type="password" 
+            id="apiKeyInput" 
+            placeholder="Enter your Groq API key"
+          >
+        <p class="hint-text">Your API key is stored locally on your device.</p>
+      </div>
+      
+      <div class="form-group">
+        <label for="modelSelect">Transcription Model</label>
+        <select id="modelSelect">
+          <option value="whisper-large-v3-turbo">Whisper Large V3 Turbo (Fastest)</option>
+          <option value="whisper-large-v3">Whisper Large V3 (Most Accurate)</option>
+          <option value="distil-whisper-large-v3-en">Distil-Whisper English (English Only)</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="languageSelect">Language (Optional)</label>
+        <select id="languageSelect">
+          <option value="">Auto-detect language</option>
+          <option value="en">English</option>
+          <option value="es">Spanish</option>
+          <option value="fr">French</option>
+          <option value="de">German</option>
+          <option value="it">Italian</option>
+          <option value="pt">Portuguese</option>
+          <option value="ru">Russian</option>
+          <option value="zh">Chinese</option>
+          <option value="ja">Japanese</option>
+          <option value="ko">Korean</option>
+          <option value="ar">Arabic</option>
+          <option value="hi">Hindi</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="autoCopyToggle">Auto-Copy to Clipboard</label>
+        <select id="autoCopyToggle">
+          <option value="true" selected>Enabled</option>
+          <option value="false">Disabled</option>
+        </select>
+        <p class="hint-text">Automatically copy transcription to clipboard when recording stops.</p>
+      </div>
+      
+      <div class="form-group">
+        <label for="interfaceModeToggle">Interface Mode</label>
+        <select id="interfaceModeToggle">
+          <option value="mic" selected>Compact Mic Mode</option>
+          <option value="text">Text Preview Mode</option>
+        </select>
+        <p class="hint-text">Choose between the compact mic interface or text preview interface to see transcriptions before copying.</p>
+      </div>
+      
+      <button id="saveSettingsButton" class="save-button">Save Settings</button>
+    </div>
+  </div>
+  
+  <!-- Text Preview Panel -->
+  <div id="textPreviewPanel" class="text-preview-panel">
+    <!-- Text Preview Header -->
+    <div class="text-preview-header">
+      <div class="text-preview-title">
+        Transcription
+        <span id="previewStatus" class="preview-status">Ready</span>
+      </div>
+      <div class="preview-buttons">
+        <button id="settingsButton" class="preview-button" title="Settings">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M19.4 15C19.2669 15.3016 19.2272 15.6362 19.286 15.9606C19.3448 16.285 19.4995 16.5843 19.73 16.82L19.79 16.88C19.976 17.0657 20.1235 17.2863 20.2241 17.5291C20.3248 17.7719 20.3766 18.0322 20.3766 18.295C20.3766 18.5578 20.3248 18.8181 20.2241 19.0609C20.1235 19.3037 19.976 19.5243 19.79 19.71C19.6043 19.896 19.3837 20.0435 19.1409 20.1441C18.8981 20.2448 18.6378 20.2966 18.375 20.2966C18.1122 20.2966 17.8519 20.2448 17.6091 20.1441C17.3663 20.0435 17.1457 19.896 16.96 19.71L16.9 19.65C16.6643 19.4195 16.365 19.2648 16.0406 19.206C15.7162 19.1472 15.3816 19.1869 15.08 19.32C14.7842 19.4468 14.532 19.6572 14.3543 19.9255C14.1766 20.1938 14.0813 20.5082 14.08 20.83V21C14.08 21.5304 13.8693 22.0391 13.4942 22.4142C13.1191 22.7893 12.6104 23 12.08 23C11.5496 23 11.0409 22.7893 10.6658 22.4142C10.2907 22.0391 10.08 21.5304 10.08 21V20.91C10.0723 20.579 9.96512 20.258 9.77251 19.9887C9.5799 19.7194 9.31074 19.5143 9 19.4C8.69838 19.2669 8.36381 19.2272 8.03941 19.286C7.71502 19.3448 7.41568 19.4995 7.18 19.73L7.12 19.79C6.93425 19.976 6.71368 20.1235 6.47088 20.2241C6.22808 20.3248 5.96783 20.3766 5.705 20.3766C5.44217 20.3766 5.18192 20.3248 4.93912 20.2241C4.69632 20.1235 4.47575 19.976 4.29 19.79C4.10405 19.6043 3.95653 19.3837 3.85588 19.1409C3.75523 18.8981 3.70343 18.6378 3.70343 18.375C3.70343 18.1122 3.75523 17.8519 3.85588 17.6091C3.95653 17.3663 4.10405 17.1457 4.29 16.96L4.35 16.9C4.58054 16.6643 4.73519 16.365 4.794 16.0406C4.85282 15.7162 4.81312 15.3816 4.68 15.08C4.55324 14.7842 4.34276 14.532 4.07447 14.3543C3.80618 14.1766 3.49179 14.0813 3.17 14.08H3C2.46957 14.08 1.96086 13.8693 1.58579 13.4942C1.21071 13.1191 1 12.6104 1 12.08C1 11.5496 1.21071 11.0409 1.58579 10.6658C1.96086 10.2907 2.46957 10.08 3 10.08H3.09C3.42099 10.0723 3.742 9.96512 4.0113 9.77251C4.28059 9.5799 4.48572 9.31074 4.6 9C4.73312 8.69838 4.77282 8.36381 4.714 8.03941C4.65519 7.71502 4.50054 7.41568 4.27 7.18L4.21 7.12C4.02405 6.93425 3.87653 6.71368 3.77588 6.47088C3.67523 6.22808 3.62343 5.96783 3.62343 5.705C3.62343 5.44217 3.67523 5.18192 3.77588 4.93912C3.87653 4.69632 4.02405 4.47575 4.21 4.29C4.39575 4.10405 4.61632 3.95653 4.85912 3.85588C5.10192 3.75523 5.36217 3.70343 5.625 3.70343C5.88783 3.70343 6.14808 3.75523 6.39088 3.85588C6.63368 3.95653 6.85425 4.10405 7.04 4.29L7.1 4.35C7.33568 4.58054 7.63502 4.73519 7.95941 4.794C8.28381 4.85282 8.61838 4.81312 8.92 4.68H9C9.29577 4.55324 9.54802 4.34276 9.72569 4.07447C9.90337 3.80618 9.99872 3.49179 10 3.17V3C10 2.46957 10.2107 1.96086 10.5858 1.58579C10.9609 1.21071 11.4696 1 12 1C12.5304 1 13.0391 1.21071 13.4142 1.58579C13.7893 1.96086 14 2.46957 14 3V3.09C14.0013 3.41179 14.0966 3.72618 14.2743 3.99447C14.452 4.26276 14.7042 4.47324 15 4.6C15.3016 4.73312 15.6362 4.77282 15.9606 4.714C16.285 4.65519 16.5843 4.50054 16.82 4.27L16.88 4.21C17.0657 4.02405 17.2863 3.87653 17.5291 3.77588C17.7719 3.67523 18.0322 3.62343 18.295 3.62343C18.5578 3.62343 18.8181 3.67523 19.0609 3.77588C19.3037 3.87653 19.5243 4.02405 19.71 4.21C19.896 4.39575 20.0435 4.61632 20.1441 4.85912C20.2448 5.10192 20.2966 5.36217 20.2966 5.625C20.2966 5.88783 20.2448 6.14808 20.1441 6.39088C20.0435 6.63368 19.896 6.85425 19.71 7.04L19.65 7.1C19.4195 7.33568 19.2648 7.63502 19.206 7.95941C19.1472 8.28381 19.1869 8.61838 19.32 8.92V9C19.4468 9.29577 19.6572 9.54802 19.9255 9.72569C20.1938 9.90337 20.5082 9.99872 20.83 10H21C21.5304 10 22.0391 10.2107 22.4142 10.5858C22.7893 10.9609 23 11.4696 23 12C23 12.5304 22.7893 13.0391 22.4142 13.4142C22.0391 13.7893 21.5304 14 21 14H20.91C20.5882 14.0013 20.2738 14.0966 20.0055 14.2743C19.7372 14.452 19.5268 14.7042 19.4 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button id="minimizeButton" class="preview-button" title="Minimize to Mic">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 3V6C8 6.53043 7.78929 7.03914 7.41421 7.41421C7.03914 7.78929 6.53043 8 6 8H3M21 8H18C17.4696 8 16.9609 7.78929 16.5858 7.41421C16.2107 7.03914 16 6.53043 16 6V3M16 21V18C16 17.4696 16.2107 16.9609 16.5858 16.5858C16.9609 16.2107 17.4696 16 18 16H21M3 16H6C6.53043 16 7.03914 16.2107 7.41421 16.5858C7.78929 16.9609 8 17.4696 8 18V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          </button>
+        </div>
+    </div>
+    
+    <!-- Text Preview Content -->
+    <div class="text-preview-content">
+      <!-- Text Display Area -->
+      <div id="textDisplay" class="text-display"></div>
+      
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button id="recordButton" class="action-button primary record">
+          <svg class="button-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14Z" fill="currentColor"/>
+            <path d="M12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Record
+        </button>
+        <button id="copyButton" class="action-button copy">
+          <svg class="button-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 12.9V17.1C16 20.6 14.6 22 11.1 22H6.9C3.4 22 2 20.6 2 17.1V12.9C2 9.4 3.4 8 6.9 8H11.1C14.6 8 16 9.4 16 12.9Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M22 6.9V11.1C22 14.6 20.6 16 17.1 16H16V12.9C16 9.4 14.6 8 11.1 8H8V6.9C8 3.4 9.4 2 12.9 2H17.1C20.6 2 22 3.4 22 6.9Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Copy
+        </button>
+        <button id="clearButton" class="action-button clear">
+          <svg class="button-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 6H5H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Clear
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Toast Notification - hidden, using visual mic feedback instead -->
+  <div id="toast" class="toast" style="display:none">
+    <svg class="toast-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span id="toastMessage">Copied to clipboard!</span>
+  </div>
+  
+  <script src="renderer.js"></script>
+</body>
+</html> 
