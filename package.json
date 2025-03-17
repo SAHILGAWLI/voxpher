@@ -24,7 +24,10 @@
     "transcription",
     "speech-to-text"
   ],
-  "author": "",
+  "author": {
+    "name": "Whispher Pro Team",
+    "email": "contact@whispherpro.com"
+  },
   "license": "ISC",
   "devDependencies": {
     "electron": "^19.0.0",
