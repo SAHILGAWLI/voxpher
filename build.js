@@ -79,7 +79,7 @@ function buildLinux() {
 // Main build process
 function build() {
   const args = process.argv.slice(2);
-  const buildWindows = args.includes('--win') || args.length === 0;
+  const buildWindowsFlag = args.includes('--win') || args.length === 0;
   const buildLinuxOnly = args.includes('--linux');
   
   log('===============================', colors.bright + colors.cyan);
@@ -95,7 +95,7 @@ function build() {
     exec('npm install');
   }
   
-  if (buildWindows && !buildLinuxOnly) {
+  if (buildWindowsFlag && !buildLinuxOnly) {
     buildWindows();
   }
   
