@@ -6,7 +6,9 @@ A powerful desktop application for high-quality speech recognition and transcrip
 
 - **GitHub Repository**: [https://github.com/SAHILGAWLI/whispher_pro_desktop](https://github.com/SAHILGAWLI/whispher_pro_desktop)
 - **GitHub Releases**: [https://github.com/SAHILGAWLI/whispher_pro_desktop/releases](https://github.com/SAHILGAWLI/whispher_pro_desktop/releases)
-- **Website**: [https://sahilgawli.github.io/whispher_pro_desktop/](https://sahilgawli.github.io/whispher_pro_desktop/)
+- **Website**: 
+  - [Vercel (Primary)](https://whispher-pro-desktop.vercel.app/) <!-- Replace with your actual Vercel URL once deployed -->
+  - [GitHub Pages (Backup)](https://sahilgawli.github.io/whispher_pro_desktop/)
 
 ## 💾 Downloads
 

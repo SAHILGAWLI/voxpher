@@ -4,125 +4,291 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Whispher Pro - AI-Powered Voice Transcription</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --accent: #f0f9ff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --background: #ffffff;
+            --background-alt: #f8fafc;
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            box-sizing: border-box;
         }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--background);
+        }
+
         .container {
-            width: 80%;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 0 2rem;
         }
+
         header {
-            background-color: #0066cc;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            padding: 1rem 0;
-            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
         }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.05)"/></svg>');
+            opacity: 0.1;
+        }
+
         .logo {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 1rem;
+            margin-bottom: 2rem;
         }
+
         .logo img {
-            height: 50px;
+            height: 60px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            transition: transform 0.3s ease;
         }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
         h1 {
-            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
         }
+
+        header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
         section {
-            margin: 2rem 0;
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin: 4rem 0;
+            padding: 3rem;
+            background: var(--background);
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
+        section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
         h2 {
-            color: #0066cc;
-            border-bottom: 2px solid #0066cc;
-            padding-bottom: 0.5rem;
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
         }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60%;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
         .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature {
+            background: var(--background-alt);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(37, 99, 235, 0.1);
+        }
+
+        .feature h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature i {
+            font-size: 1.5rem;
+        }
+
+        .download-options {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
-        }
-        .feature {
-            background-color: #f0f8ff;
-            padding: 1.5rem;
-            border-radius: 8px;
-            border-left: 4px solid #0066cc;
-        }
-        .feature h3 {
-            margin-top: 0;
-            color: #0066cc;
-        }
-        .cta {
-            text-align: center;
             margin: 3rem 0;
         }
-        .button {
-            display: inline-block;
-            background-color: #0066cc;
-            color: white;
-            padding: 0.8rem 1.5rem;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            margin: 0.5rem;
-            transition: background-color 0.3s;
-        }
-        .button:hover {
-            background-color: #004c99;
-        }
-        .button.secondary {
-            background-color: #666;
-        }
-        .button.secondary:hover {
-            background-color: #555;
-        }
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 1rem 0;
-            margin-top: 2rem;
-        }
-        .screenshot {
-            max-width: 100%;
-            height: auto;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin: 1rem 0;
-        }
-        .download-options {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin: 2rem 0;
-        }
+
         .download-card {
-            background-color: #f0f8ff;
-            padding: 1.5rem;
+            background: var(--background-alt);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+        }
+
+        .download-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(37, 99, 235, 0.1);
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
             border-radius: 8px;
-            border-left: 4px solid #0066cc;
-            width: 300px;
-            text-align: left;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
-        .download-card h3 {
-            margin-top: 0;
-            color: #0066cc;
+
+        .button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
         }
-        .download-card ul {
-            padding-left: 1.5rem;
+
+        .button.secondary {
+            background: var(--secondary);
+        }
+
+        .button.secondary:hover {
+            background: #475569;
+        }
+
+        .cta {
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            padding: 4rem 2rem;
+            border-radius: 16px;
+            color: white;
+            margin: 4rem 0;
+        }
+
+        .cta h2 {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta h2::after {
+            background: white;
+        }
+
+        .cta .button {
+            background: white;
+            color: var(--primary);
+            margin: 1rem;
+        }
+
+        .cta .button:hover {
+            background: var(--accent);
+        }
+
+        footer {
+            background: var(--background-alt);
+            padding: 3rem 0;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            section {
+                padding: 2rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Floating animation for the logo */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .logo img {
+            animation: float 3s ease-in-out infinite;
         }
     </style>
 </head>
@@ -133,119 +299,117 @@
                 <img src="images/icon.png" alt="Whispher Pro Logo">
                 <h1>Whispher Pro</h1>
             </div>
-            <p>AI-Powered Voice Transcription for Everyone</p>
+            <p>Experience the Future of Voice Transcription with AI-Powered Precision</p>
         </div>
     </header>
 
     <div class="container">
-        <section>
-            <h2>About Whispher Pro</h2>
-            <p>Whispher Pro is a powerful desktop application that converts speech to text using advanced AI technology. Whether you're a writer, journalist, student, or professional, Whispher Pro helps you capture your thoughts effortlessly.</p>
-            <p>Powered by Groq's Whisper Large V3 model, our application delivers high-quality transcriptions with impressive accuracy and speed.</p>
+        <section class="fade-in">
+            <h2>Transform Your Voice into Text</h2>
+            <p>Whispher Pro harnesses the power of Groq's cutting-edge Whisper Large V3 model to deliver unparalleled transcription accuracy. Whether you're a content creator, professional, or student, unlock new possibilities in voice-to-text conversion.</p>
         </section>
 
-        <section id="download">
-            <h2>Download Whispher Pro</h2>
-            <p>Get started with Whispher Pro by downloading the application for your operating system:</p>
+        <section id="download" class="fade-in">
+            <h2>Download Now</h2>
+            <p>Choose your platform and start experiencing premium voice transcription today:</p>
             
             <div class="download-options">
                 <div class="download-card">
-                    <h3>Windows</h3>
-                    <p>Compatible with Windows 10 and 11</p>
+                    <h3><i class="fab fa-windows"></i> Windows</h3>
+                    <p>Optimized for Windows 10 and 11</p>
                     <ul>
-                        <li>Simple installer</li>
+                        <li>Seamless installation process</li>
                         <li>Automatic updates</li>
-                        <li>64-bit version</li>
+                        <li>Native performance</li>
                     </ul>
-                    <a href="https://github.com/SAHILGAWLI/whispher_pro_desktop/releases/download/v1.0.0/Whispher.Pro.Setup.1.0.0.exe" class="button">Download for Windows</a>
+                    <a href="https://github.com/SAHILGAWLI/whispher_pro_desktop/releases/download/v1.0.0/Whispher.Pro.Setup.1.0.0.exe" class="button">
+                        <i class="fas fa-download"></i> Download for Windows
+                    </a>
                 </div>
                 
                 <div class="download-card">
-                    <h3>Linux</h3>
-                    <p>AppImage format - runs on most distributions</p>
+                    <h3><i class="fab fa-linux"></i> Linux</h3>
+                    <p>Universal AppImage format</p>
                     <ul>
-                        <li>No installation required</li>
-                        <li>Portable application</li>
-                        <li>Compatible with Ubuntu, Debian, Fedora, etc.</li>
+                        <li>Run anywhere installation</li>
+                        <li>Maximum compatibility</li>
+                        <li>Portable solution</li>
                     </ul>
-                    <a href="https://github.com/SAHILGAWLI/whispher_pro_desktop/releases/download/v1.0.0/Whispher.Pro-1.0.0.AppImage" class="button">Download for Linux</a>
+                    <a href="https://github.com/SAHILGAWLI/whispher_pro_desktop/releases/download/v1.0.0/Whispher.Pro-1.0.0.AppImage" class="button">
+                        <i class="fas fa-download"></i> Download for Linux
+                    </a>
                 </div>
             </div>
-            
-            <p>All downloads are available on our <a href="https://github.com/SAHILGAWLI/whispher_pro_desktop/releases">GitHub Releases page</a>.</p>
-            
-            <h3>Installation Instructions</h3>
-            <h4>Windows</h4>
-            <ol>
-                <li>Download the Windows installer</li>
-                <li>Run the installer file</li>
-                <li>Follow the installation instructions</li>
-                <li>Launch Whispher Pro from your Start menu or desktop shortcut</li>
-            </ol>
-            
-            <h4>Linux</h4>
-            <ol>
-                <li>Download the AppImage file</li>
-                <li>Make it executable: <code>chmod +x "Whispher Pro-1.0.0.AppImage"</code></li>
-                <li>Run the application: <code>./Whispher Pro-1.0.0.AppImage</code></li>
-            </ol>
         </section>
 
-        <section>
-            <h2>Features</h2>
+        <section class="fade-in">
+            <h2>Premium Features</h2>
             <div class="features">
                 <div class="feature">
-                    <h3>Real-time Transcription</h3>
-                    <p>Convert speech to text instantly as you speak, with minimal delay.</p>
+                    <h3><i class="fas fa-bolt"></i> Real-time Transcription</h3>
+                    <p>Experience instant voice-to-text conversion with minimal latency.</p>
                 </div>
                 <div class="feature">
-                    <h3>High Accuracy</h3>
-                    <p>Powered by Groq's Whisper Large V3 model for superior transcription quality.</p>
+                    <h3><i class="fas fa-check-circle"></i> Superior Accuracy</h3>
+                    <p>Powered by Groq's advanced Whisper Large V3 model for precise results.</p>
                 </div>
                 <div class="feature">
-                    <h3>Easy to Use</h3>
-                    <p>Simple, intuitive interface with minimal setup required.</p>
+                    <h3><i class="fas fa-magic"></i> Intuitive Interface</h3>
+                    <p>Clean, modern design that makes transcription effortless.</p>
                 </div>
                 <div class="feature">
-                    <h3>Export Options</h3>
-                    <p>Save your transcriptions in different formats for easy integration with other tools.</p>
+                    <h3><i class="fas fa-file-export"></i> Flexible Export</h3>
+                    <p>Save your transcriptions in multiple formats for seamless workflow integration.</p>
                 </div>
                 <div class="feature">
-                    <h3>Privacy Focused</h3>
-                    <p>Your data remains secure with our privacy-first approach.</p>
+                    <h3><i class="fas fa-shield-alt"></i> Privacy First</h3>
+                    <p>Your data remains protected with our secure processing approach.</p>
                 </div>
                 <div class="feature">
-                    <h3>Cross-Platform</h3>
-                    <p>Available for Windows, Linux, and macOS (coming soon).</p>
+                    <h3><i class="fas fa-globe"></i> Cross-Platform</h3>
+                    <p>Use on Windows, Linux, and soon on macOS.</p>
                 </div>
             </div>
         </section>
 
-        <section>
-            <h2>How It Works</h2>
-            <p>Whispher Pro utilizes your computer's microphone to capture audio, which is then processed by Groq's Whisper Large V3 model to generate accurate text transcriptions. The application handles the entire process seamlessly, providing you with a straightforward way to convert speech to text.</p>
-            
-            <ol>
-                <li>Launch the application and configure your API key (first-time setup only)</li>
-                <li>Click the "Record" button and start speaking</li>
-                <li>Watch as your speech is converted to text in real-time</li>
-                <li>Edit your transcription as needed</li>
-                <li>Save or export your transcription</li>
-            </ol>
+        <section class="fade-in">
+            <h2>Streamlined Workflow</h2>
+            <div class="features">
+                <div class="feature">
+                    <h3><i class="fas fa-1"></i> Quick Setup</h3>
+                    <p>Configure your API key once and you're ready to go</p>
+                </div>
+                <div class="feature">
+                    <h3><i class="fas fa-2"></i> Start Recording</h3>
+                    <p>Click record and speak naturally</p>
+                </div>
+                <div class="feature">
+                    <h3><i class="fas fa-3"></i> Watch Magic Happen</h3>
+                    <p>See your words transform into text in real-time</p>
+                </div>
+                <div class="feature">
+                    <h3><i class="fas fa-4"></i> Perfect Your Text</h3>
+                    <p>Edit and refine your transcription as needed</p>
+                </div>
+            </div>
         </section>
 
-        <div class="cta">
-            <h2>Ready to Try Whispher Pro?</h2>
-            <p>Experience the power of AI-driven speech recognition today.</p>
-            <a href="#download" class="button">Download Now</a>
-            <a href="https://github.com/SAHILGAWLI/whispher_pro_desktop" class="button secondary">View on GitHub</a>
+        <div class="cta fade-in">
+            <h2>Ready to Revolutionize Your Transcription Workflow?</h2>
+            <p>Join thousands of users who have already transformed their voice-to-text experience.</p>
+            <a href="#download" class="button">
+                <i class="fas fa-rocket"></i> Get Started Now
+            </a>
+            <a href="https://github.com/SAHILGAWLI/whispher_pro_desktop" class="button secondary">
+                <i class="fab fa-github"></i> View on GitHub
+            </a>
         </div>
     </div>
 
     <footer>
         <div class="container">
             <p>&copy; 2024 Whispher Pro. All rights reserved.</p>
-            <p>Powered by Electron and Groq's Whisper Large V3 model.</p>
+            <p>Powered by Electron and Groq's Whisper Large V3 model</p>
         </div>
     </footer>
 </body>
