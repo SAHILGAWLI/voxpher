@@ -6,7 +6,7 @@ A powerful desktop application for high-quality speech recognition and transcrip
 
 - **GitHub Repository**: [https://github.com/SAHILGAWLI/whispher_pro_desktop](https://github.com/SAHILGAWLI/whispher_pro_desktop)
 - **GitHub Releases**: [https://github.com/SAHILGAWLI/whispher_pro_desktop/releases](https://github.com/SAHILGAWLI/whispher_pro_desktop/releases)
-- **Website**: [GitHub Pages site will be available once configured]
+- **Website**: [https://sahilgawli.github.io/whispher_pro_desktop/](https://sahilgawli.github.io/whispher_pro_desktop/)
 
 ## 💾 Downloads
 
