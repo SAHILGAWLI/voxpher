@@ -257,6 +257,52 @@
             color: #dc2626;
         }
 
+        .text-green-600 {
+            color: #16a34a;
+        }
+
+        .mt-4 {
+            margin-top: 2rem;
+        }
+
+        .release-info {
+            background: var(--background-alt);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(37, 99, 235, 0.1);
+        }
+
+        .release-info h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 1rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .feature-list li i {
+            color: #16a34a;
+            margin-top: 0.25rem;
+        }
+
         footer {
             background: var(--background-alt);
             padding: 3rem 0;
@@ -328,16 +374,17 @@
             <div class="download-options">
                 <div class="download-card">
                     <h3><i class="fab fa-windows"></i> Windows</h3>
-                    <p>Optimized for Windows 10 and 11</p>
+                    <p>Compatible with Windows 7, 10, and 11</p>
                     <ul>
                         <li>Seamless installation process</li>
                         <li>Automatic updates</li>
-                        <li>Native performance</li>
+                        <li>Enhanced compatibility</li>
+                        <li>32-bit and 64-bit support</li>
                     </ul>
                     <a href="https://github.com/SAHILGAWLI/voxpher/archive/refs/tags/v1.0.0.zip" class="button">
                         <i class="fas fa-download"></i> Download Source (Windows)
                     </a>
-                    <p class="mt-2 text-sm text-red-600"><i class="fas fa-info-circle"></i> Note: Installer coming soon</p>
+                    <p class="mt-2 text-sm text-green-600"><i class="fas fa-check-circle"></i> Official installer coming soon</p>
                 </div>
                 
                 <div class="download-card">
@@ -345,14 +392,26 @@
                     <p>Universal AppImage format</p>
                     <ul>
                         <li>Run anywhere installation</li>
-                        <li>Maximum compatibility</li>
-                        <li>Portable solution</li>
+                        <li>Maximum compatibility across distros</li>
+                        <li>No dependencies required</li>
+                        <li>ARM and x64 architecture support</li>
                     </ul>
                     <a href="https://github.com/SAHILGAWLI/voxpher/archive/refs/tags/v1.0.0.tar.gz" class="button">
                         <i class="fas fa-download"></i> Download Source (Linux)
                     </a>
-                    <p class="mt-2 text-sm text-red-600"><i class="fas fa-info-circle"></i> Note: AppImage coming soon</p>
+                    <p class="mt-2 text-sm text-green-600"><i class="fas fa-check-circle"></i> Official AppImage coming soon</p>
                 </div>
+            </div>
+            
+            <div class="release-info mt-4">
+                <h3><i class="fas fa-info-circle"></i> About Our Installers</h3>
+                <p>Our installers are carefully optimized for maximum compatibility:</p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check"></i> <strong>Windows 7 Support:</strong> Specifically designed to work on older Windows versions</li>
+                    <li><i class="fas fa-check"></i> <strong>Universal Linux Support:</strong> AppImage technology ensures it works on virtually any Linux distribution</li>
+                    <li><i class="fas fa-check"></i> <strong>No Admin Rights Required:</strong> Portable options available for both platforms</li>
+                    <li><i class="fas fa-check"></i> <strong>Multi-Architecture:</strong> Support for both 32-bit and 64-bit systems</li>
+                </ul>
             </div>
         </section>
 
