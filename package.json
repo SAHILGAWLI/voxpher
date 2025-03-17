@@ -8,8 +8,13 @@
     "start:nosandbox": "electron . --no-sandbox",
     "build": "electron-builder",
     "build:win": "electron-builder --win",
+    "build:win7": "electron-builder --win --x64 --ia32",
     "build:mac": "electron-builder --mac",
-    "build:linux": "electron-builder --linux"
+    "build:linux": "electron-builder --linux",
+    "build:all": "npm run build:win && npm run build:linux",
+    "build:script": "node build.js",
+    "build:win-script": "node build.js --win",
+    "build:linux-script": "node build.js --linux"
   },
   "keywords": [
     "whisper",
@@ -22,7 +27,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^29.0.0",
+    "electron": "^19.0.0",
     "electron-builder": "^24.9.1"
   },
   "dependencies": {
@@ -50,17 +55,54 @@
       "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}"
     ],
     "win": {
-      "target": "nsis",
-      "icon": "src/assets/icon.ico"
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64", "ia32"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64", "ia32"]
+        }
+      ],
+      "icon": "src/assets/icon.ico",
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Whispher Pro",
+      "installerIcon": "src/assets/icon.ico",
+      "uninstallerIcon": "src/assets/icon.ico",
+      "installerHeaderIcon": "src/assets/icon.ico",
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "${productName}-Portable-${version}.${ext}"
     },
     "mac": {
       "target": "dmg",
-      "icon": "src/assets/icon.icns"
+      "icon": "src/assets/icon.icns",
+      "category": "public.app-category.productivity"
     },
     "linux": {
-      "target": "AppImage",
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": ["x64", "armv7l", "arm64"]
+        },
+        "deb"
+      ],
       "icon": "src/assets/icon.png",
-      "category": "Utility"
-    }
+      "category": "Utility",
+      "description": "AI-powered voice dictation using Groq's Whisper Large V3",
+      "artifactName": "${productName}-${version}.${ext}"
+    },
+    "appImage": {
+      "license": "LICENSE"
+    },
+    "publish": null
   }
 }
