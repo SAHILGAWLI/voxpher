@@ -12,8 +12,8 @@ A powerful desktop application for high-quality speech recognition and transcrip
 
 ## 💾 Downloads
 
-- **Windows**: [Download Installer](https://github.com/SAHILGAWLI/voxpher/releases/download/v1.5/Whispher%20Pro-Setup-1.0.0.exe)
-- **Linux**: [Download AppImage](https://github.com/SAHILGAWLI/voxpher/releases/download/v1.5/Whispher%20Pro-1.0.0.AppImage)
+- **Windows**: [Download Installer](https://github.com/SAHILGAWLI/voxpher/releases/download/v1.5/Whispher.Pro-Setup-1.0.0.exe)
+- **Linux**: [Download AppImage](https://github.com/SAHILGAWLI/voxpher/releases/download/v1.5/Whispher.Pro-1.0.0.AppImage)
 - **macOS**: Coming soon
 
 ## ✨ Features
