@@ -11,6 +11,7 @@ out/
 *.AppImage
 *.exe
 *.dmg
+*.deb
 
 # IDE and editor files
 .idea/
@@ -52,3 +53,6 @@ dist/
 website/downloads/
 *.AppImage
 app.asar
+
+# Release files
+releases/
