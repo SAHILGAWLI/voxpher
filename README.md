@@ -4,16 +4,16 @@ A powerful desktop application for high-quality speech recognition and transcrip
 
 ## 🔗 Links
 
-- **GitHub Repository**: [https://github.com/SAHILGAWLI/whispher_pro_desktop](https://github.com/SAHILGAWLI/whispher_pro_desktop)
-- **GitHub Releases**: [https://github.com/SAHILGAWLI/whispher_pro_desktop/releases](https://github.com/SAHILGAWLI/whispher_pro_desktop/releases)
+- **GitHub Repository**: [https://github.com/SAHILGAWLI/voxpher](https://github.com/SAHILGAWLI/voxpher)
+- **GitHub Releases**: [https://github.com/SAHILGAWLI/voxpher/releases](https://github.com/SAHILGAWLI/voxpher/releases)
 - **Website**: 
-  - [Vercel (Primary)](https://whispher-pro-desktop.vercel.app/) <!-- Replace with your actual Vercel URL once deployed -->
-  - [GitHub Pages (Backup)](https://sahilgawli.github.io/whispher_pro_desktop/)
+  - [Vercel (Primary)](https://whispher-pro-desktop.vercel.app/)
+  - [GitHub Pages (Backup)](https://sahilgawli.github.io/voxpher/)
 
 ## 💾 Downloads
 
-- **Windows**: [Download Installer](https://github.com/SAHILGAWLI/whispher_pro_desktop/releases/download/v1.0.0/Whispher.Pro.Setup.1.0.0.exe)
-- **Linux**: [Download AppImage](https://github.com/SAHILGAWLI/whispher_pro_desktop/releases/download/v1.0.0/Whispher.Pro-1.0.0.AppImage)
+- **Windows**: [Download Installer](https://github.com/SAHILGAWLI/voxpher/releases/download/v1.0.0/Whispher.Pro-Setup-1.0.0.exe)
+- **Linux**: [Download AppImage](https://github.com/SAHILGAWLI/voxpher/releases/download/v1.0.0/Whispher.Pro-1.0.0.AppImage)
 - **macOS**: Coming soon
 
 ## ✨ Features
@@ -35,15 +35,15 @@ A powerful desktop application for high-quality speech recognition and transcrip
 
 ### Linux
 1. Download the AppImage file
-2. Make it executable: `chmod +x "Whispher Pro-1.0.0.AppImage"`
-3. Run the application: `./Whispher Pro-1.0.0.AppImage`
+2. Make it executable: `chmod +x "Whispher.Pro-1.0.0.AppImage"`
+3. Run the application: `./Whispher.Pro-1.0.0.AppImage`
 
 ## 🔧 Development Setup
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/SAHILGAWLI/whispher_pro_desktop.git
-   cd whispher_pro_desktop
+   git clone https://github.com/SAHILGAWLI/voxpher.git
+   cd voxpher
    ```
 
 2. Install dependencies:
@@ -69,4 +69,4 @@ ISC License
 
 - [Electron](https://www.electronjs.org/) - Cross-platform desktop application framework
 - [Groq](https://groq.com/) - Provider of the Whisper Large V3 model API
-- [RecordRTC](https://recordrtc.org/) - For audio recording functionality 
+- [RecordRTC](https://recordrtc.org/) - For audio recording functionality
