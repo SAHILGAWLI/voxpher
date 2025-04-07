@@ -1397,6 +1397,259 @@
         .waveform-line:nth-child(18) { --i: 18; }
         .waveform-line:nth-child(19) { --i: 19; }
         .waveform-line:nth-child(20) { --i: 20; }
+
+        /* Setup Section Styles */
+        .setup-section {
+            padding: 10rem 0;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(249, 250, 251, 1) 100%);
+        }
+
+        .setup-steps {
+            max-width: 900px;
+            margin: 5rem auto;
+        }
+
+        .setup-step {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .setup-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 2.5rem;
+            top: 5rem;
+            bottom: -3rem;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--gradient-start), var(--gradient-end));
+            opacity: 0.3;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.25);
+        }
+
+        .step-content {
+            flex: 1;
+            padding-top: 0.5rem;
+        }
+
+        .step-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .step-content p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .text-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .text-link:hover {
+            color: var(--gradient-end);
+        }
+
+        .important-note {
+            display: inline-block;
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .step-image {
+            margin-top: 1.5rem;
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--glass-background);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 40px 0 var(--glass-shadow);
+            padding: 1.5rem;
+        }
+
+        .setup-img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .settings-preview {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .mockup-sidebar.mini {
+            width: 60px;
+            background: #334155;
+            height: 240px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            gap: 30px;
+            border-radius: 12px;
+        }
+
+        .sidebar-item.highlight {
+            background-color: rgba(99, 102, 241, 0.9);
+            color: white;
+            animation: pulse 2s ease infinite;
+        }
+
+        .arrow-indicator {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            animation: moveRight 1.5s ease infinite;
+        }
+
+        .settings-panel {
+            flex: 1;
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .settings-panel h4 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            color: var(--text-color);
+        }
+
+        .settings-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .settings-group label {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .api-input {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .api-input input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 1rem;
+            color: var(--text-color);
+            background: #f8fafc;
+        }
+
+        .save-button {
+            align-self: flex-start;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+        }
+
+        .save-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+        }
+
+        .setup-complete {
+            text-align: center;
+            max-width: 600px;
+            margin: 6rem auto 0;
+            padding: 3rem;
+            background: var(--glass-background);
+            border-radius: 24px;
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 40px 0 var(--glass-shadow);
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: #10b981;
+            margin-bottom: 1.5rem;
+        }
+
+        .setup-complete h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .setup-complete p {
+            color: var(--text-light);
+            font-size: 1.2rem;
+        }
+
+        @keyframes moveRight {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+
+        @media (max-width: 768px) {
+            .setup-step {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .setup-step:not(:last-child)::after {
+                left: 2.5rem;
+                top: 5rem;
+                height: calc(100% - 2rem);
+            }
+            
+            .setup-steps {
+                padding-left: 1rem;
+            }
+            
+            .settings-preview {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1637,6 +1890,98 @@
                         <i class="fas fa-download"></i> Download for Linux
                     </a>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="setup-section" id="setup">
+        <div class="gradient-circle gradient-circle-3"></div>
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Getting Started with Voxpher</h2>
+            <p class="section-subtitle" data-aos="fade-up">Follow these simple steps to set up your application after installation.</p>
+            
+            <div class="setup-steps">
+                <div class="setup-step" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Visit Groq Cloud</h3>
+                        <p>Go to Groq Cloud to get your API key. <a href="https://console.groq.com/keys" target="_blank" class="text-link">Click here to visit <i class="fas fa-external-link-alt"></i></a></p>
+                        <div class="step-image">
+                            <img src="https://i.imgur.com/dVnzAWp.png" alt="Groq Cloud Console" class="setup-img">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="setup-step" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Sign In and Create Key</h3>
+                        <p>Sign in using your Google account, then click on "Create API Key" in the top right corner.</p>
+                    </div>
+                </div>
+                
+                <div class="setup-step" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Name and Copy Key</h3>
+                        <p>Name your key anything you want and copy the generated API key. <span class="important-note">Note: This key will be shown only once!</span></p>
+                    </div>
+                </div>
+                
+                <div class="setup-step" data-aos="fade-up" data-aos-delay="400">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Run Voxpher</h3>
+                        <p>Launch the Voxpher application you've just installed.</p>
+                    </div>
+                </div>
+                
+                <div class="setup-step" data-aos="fade-up" data-aos-delay="500">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Access Settings</h3>
+                        <p>Double click on the microphone icon in the sidebar to access the settings panel.</p>
+                        <div class="step-image">
+                            <div class="settings-preview">
+                                <div class="mockup-sidebar mini">
+                                    <div class="sidebar-item"><i class="fas fa-home"></i></div>
+                                    <div class="sidebar-item highlight"><i class="fas fa-microphone"></i></div>
+                                    <div class="sidebar-item"><i class="fas fa-file-alt"></i></div>
+                                    <div class="sidebar-item"><i class="fas fa-cog"></i></div>
+                                </div>
+                                <div class="arrow-indicator">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                <div class="settings-panel">
+                                    <h4>Application Settings</h4>
+                                    <div class="settings-group">
+                                        <label for="api-key">GROQ API KEY:</label>
+                                        <div class="api-input">
+                                            <input type="text" id="api-key" placeholder="Enter your API key here">
+                                        </div>
+                                        <button class="save-button">Save Settings</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="setup-step" data-aos="fade-up" data-aos-delay="600">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h3>Set API Key and Save</h3>
+                        <p>Paste your Groq API key under "GROQ API KEY" field, click "Save Settings" and you're ready to go!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="setup-complete" data-aos="fade-up">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>You're All Set!</h3>
+                <p>Enjoy blazing-fast, accurate voice transcription powered by Groq's Whisper Large V3.</p>
             </div>
         </div>
     </section>
