@@ -1400,107 +1400,263 @@
 
         /* Setup Section Styles */
         .setup-section {
-            padding: 10rem 0;
+            padding: 8rem 0;
             position: relative;
             overflow: hidden;
             background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(249, 250, 251, 1) 100%);
         }
 
-        .setup-steps {
-            max-width: 900px;
-            margin: 5rem auto;
+        .setup-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 6rem;
         }
 
-        .setup-step {
-            display: flex;
-            gap: 2rem;
-            margin-bottom: 4rem;
+        .setup-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .setup-steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-bottom: 6rem;
+        }
+
+        .setup-step-card {
+            background: var(--glass-background);
+            border-radius: 24px;
+            padding: 3rem;
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 40px 0 var(--glass-shadow);
+            transition: all 0.3s ease;
             position: relative;
+            overflow: hidden;
         }
 
-        .setup-step:not(:last-child)::after {
+        .setup-step-card::before {
             content: '';
             position: absolute;
-            left: 2.5rem;
-            top: 5rem;
-            bottom: -3rem;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--gradient-start), var(--gradient-end));
-            opacity: 0.3;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+        }
+
+        .setup-step-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 32px 64px 0 rgba(0, 0, 0, 0.15);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
         }
 
         .step-number {
-            flex-shrink: 0;
-            width: 5rem;
-            height: 5rem;
-            border-radius: 50%;
+            font-size: 2.5rem;
+            font-weight: 800;
             background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            color: white;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .step-badge {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            font-weight: 700;
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.25);
-        }
-
-        .step-content {
-            flex: 1;
-            padding-top: 0.5rem;
+            color: white;
+            font-size: 1.2rem;
         }
 
         .step-content h3 {
             font-size: 1.5rem;
-            margin-bottom: 0.5rem;
             font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
         }
 
         .step-content p {
             color: var(--text-light);
-            font-size: 1.1rem;
+            font-size: 1rem;
             line-height: 1.6;
+            margin-bottom: 2rem;
         }
 
-        .text-link {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
+        .step-action {
+            margin-top: 2rem;
+        }
+
+        .setup-button {
             display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .setup-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+        }
+
+        .step-visual {
+            margin-top: 2rem;
+        }
+
+        .app-interface {
+            background: var(--glass-background);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .interface-mockup {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .mic-component {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .mic-button {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .mic-button::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.3));
+            z-index: -1;
+            animation: pulse 2s infinite;
+        }
+
+        .interaction-hint {
+            display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .text-link:hover {
-            color: var(--gradient-end);
-        }
-
-        .important-note {
-            display: inline-block;
-            background-color: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
-            padding: 0.3rem 0.6rem;
-            border-radius: 4px;
+        .hint-text {
+            font-size: 0.8rem;
+            color: var(--text-light);
             font-weight: 600;
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
         }
 
-        .step-image {
-            margin-top: 1.5rem;
+        .click-animation {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            animation: clickPulse 1.5s infinite;
+        }
+
+        .settings-arrow {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            animation: moveRight 2s ease infinite;
+        }
+
+        .settings-panel-preview {
+            background: white;
             border-radius: 12px;
-            overflow: hidden;
-            background: var(--glass-background);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 20px 40px 0 var(--glass-shadow);
             padding: 1.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            min-width: 200px;
         }
 
-        .setup-img {
-            width: 100%;
-            border-radius: 8px;
+        .panel-header {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .api-field label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .input-field {
+            height: 32px;
+            background: #f8fafc;
             border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            position: relative;
+        }
+
+        .input-field::after {
+            content: 'gsk_...';
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: var(--text-light);
+        }
+
+        .step-features {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .feature-item i {
+            color: #10b981;
+            font-size: 0.8rem;
         }
 
         .settings-preview {
@@ -1596,33 +1752,117 @@
             box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
         }
 
-        .setup-complete {
+        .setup-completion {
             text-align: center;
-            max-width: 600px;
-            margin: 6rem auto 0;
-            padding: 3rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .completion-content {
             background: var(--glass-background);
             border-radius: 24px;
+            padding: 4rem 3rem;
             backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
             box-shadow: 0 20px 40px 0 var(--glass-shadow);
+            position: relative;
+            overflow: hidden;
         }
 
-        .success-icon {
+        .completion-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #10b981, #059669);
+        }
+
+        .completion-icon {
             font-size: 4rem;
             color: #10b981;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            animation: successPulse 2s ease infinite;
         }
 
-        .setup-complete h3 {
+        .completion-content h3 {
             font-size: 2rem;
             margin-bottom: 1rem;
             font-weight: 700;
+            color: var(--text-dark);
         }
 
-        .setup-complete p {
+        .completion-content p {
             color: var(--text-light);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Voxphere Interface Visual */
+        .step-visual {
+            margin-top: 1.5rem;
+        }
+
+        .voxphere-interface {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 2rem;
+            background: var(--glass-background);
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .mic-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .mic-circle::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.3));
+            z-index: -1;
+            animation: pulse 2s infinite;
+        }
+
+        .instruction-text {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 0.3; }
+        }
+
+        @keyframes clickPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.6; }
+        }
+
+        @keyframes successPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         @keyframes moveRight {
@@ -1630,24 +1870,162 @@
             50% { transform: translateX(10px); }
         }
 
+        /* Tips Section Styles */
+        .tips-section {
+            padding: 8rem 0;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(180deg, rgba(249, 250, 251, 1) 0%, rgba(255, 255, 255, 1) 100%);
+        }
+
+        .tips-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 6rem;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-bottom: 6rem;
+        }
+
+        .tip-card {
+            background: var(--glass-background);
+            border-radius: 24px;
+            padding: 3rem;
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 40px 0 var(--glass-shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tip-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+        }
+
+        .tip-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 32px 64px 0 rgba(0, 0, 0, 0.15);
+        }
+
+        .tip-icon {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+        }
+
+        .tip-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .tip-content p {
+            color: var(--text-light);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .tip-highlight {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .tip-highlight i {
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+
+        .tip-highlight span {
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .tips-cta {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-content {
+            background: var(--glass-background);
+            border-radius: 24px;
+            padding: 4rem 3rem;
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 40px 0 var(--glass-shadow);
+        }
+
+        .cta-content h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .cta-content p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
         @media (max-width: 768px) {
-            .setup-step {
+            .setup-steps-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .setup-step-card {
+                padding: 2rem;
+            }
+
+            .interface-mockup {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 1.5rem;
             }
-            
-            .setup-step:not(:last-child)::after {
-                left: 2.5rem;
-                top: 5rem;
-                height: calc(100% - 2rem);
+
+            .settings-arrow {
+                transform: rotate(90deg);
             }
-            
-            .setup-steps {
-                padding-left: 1rem;
+
+            .tips-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
-            
-            .settings-preview {
-                flex-direction: column;
+
+            .tip-card {
+                padding: 2rem;
+            }
+
+            .cta-content {
+                padding: 3rem 2rem;
             }
         }
     </style>
@@ -1870,7 +2248,7 @@
                             <li><i class="fas fa-check-circle"></i> GPU Acceleration</li>
                         </ul>
                     </div>
-                    <a href="https://github.com/SAHILGAWLI/voxpher/releases/download/v1.5/Voxpher-Setup-1.0.0.exe" class="button button-primary">
+                    <a href="https://github.com/SAHILGAWLI/voxpher/releases/download/v1.5/Whispher.Pro-Setup-1.0.0.exe" class="button button-primary">
                         <i class="fas fa-download"></i> Download for Windows
                     </a>
                 </div>
@@ -1886,7 +2264,7 @@
                             <li><i class="fas fa-check-circle"></i> CUDA Support</li>
                         </ul>
                     </div>
-                    <a href="https://github.com/SAHILGAWLI/voxpher/releases/download/v1.5/Voxpher-1.0.0.AppImage" class="button button-primary">
+                    <a href="https://github.com/SAHILGAWLI/voxpher/releases/download/v1.5/Whispher.Pro-1.0.0.AppImage" class="button button-primary">
                         <i class="fas fa-download"></i> Download for Linux
                     </a>
                 </div>
@@ -1897,91 +2275,199 @@
     <section class="setup-section" id="setup">
         <div class="gradient-circle gradient-circle-3"></div>
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Getting Started with Voxpher</h2>
-            <p class="section-subtitle" data-aos="fade-up">Follow these simple steps to set up your application after installation.</p>
-            
-            <div class="setup-steps">
-                <div class="setup-step" data-aos="fade-up" data-aos-delay="100">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Visit Groq Cloud</h3>
-                        <p>Go to Groq Cloud to get your API key. <a href="https://console.groq.com/keys" target="_blank" class="text-link">Click here to visit <i class="fas fa-external-link-alt"></i></a></p>
-                        <div class="step-image">
-                            <img src="https://i.imgur.com/dVnzAWp.png" alt="Groq Cloud Console" class="setup-img">
+            <div class="setup-header" data-aos="fade-up">
+                <h2 class="section-title">Getting Started</h2>
+                <p class="section-subtitle">Set up Voxphere in under 2 minutes with our streamlined onboarding process</p>
+            </div>
+
+            <div class="setup-container">
+                <div class="setup-steps-grid">
+                    <div class="setup-step-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="step-header">
+                            <div class="step-number">01</div>
+                            <div class="step-badge">
+                                <i class="fas fa-key"></i>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <h3>Obtain Your API Key</h3>
+                            <p>Create a free account on Groq Cloud and generate your API key to access our advanced transcription models.</p>
+                            <div class="step-action">
+                                <a href="https://console.groq.com/keys" target="_blank" class="setup-button">
+                                    <span>Get API Key</span>
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="setup-step" data-aos="fade-up" data-aos-delay="200">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>Sign In and Create Key</h3>
-                        <p>Sign in using your Google account, then click on "Create API Key" in the top right corner.</p>
-                    </div>
-                </div>
-                
-                <div class="setup-step" data-aos="fade-up" data-aos-delay="300">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Name and Copy Key</h3>
-                        <p>Name your key anything you want and copy the generated API key. <span class="important-note">Note: This key will be shown only once!</span></p>
-                    </div>
-                </div>
-                
-                <div class="setup-step" data-aos="fade-up" data-aos-delay="400">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3>Run Voxpher</h3>
-                        <p>Launch the Voxpher application you've just installed.</p>
-                    </div>
-                </div>
-                
-                <div class="setup-step" data-aos="fade-up" data-aos-delay="500">
-                    <div class="step-number">5</div>
-                    <div class="step-content">
-                        <h3>Access Settings</h3>
-                        <p>Double click on the microphone icon in the sidebar to access the settings panel.</p>
-                        <div class="step-image">
-                            <div class="settings-preview">
-                                <div class="mockup-sidebar mini">
-                                    <div class="sidebar-item"><i class="fas fa-home"></i></div>
-                                    <div class="sidebar-item highlight"><i class="fas fa-microphone"></i></div>
-                                    <div class="sidebar-item"><i class="fas fa-file-alt"></i></div>
-                                    <div class="sidebar-item"><i class="fas fa-cog"></i></div>
-                                </div>
-                                <div class="arrow-indicator">
-                                    <i class="fas fa-arrow-right"></i>
-                                </div>
-                                <div class="settings-panel">
-                                    <h4>Application Settings</h4>
-                                    <div class="settings-group">
-                                        <label for="api-key">GROQ API KEY:</label>
-                                        <div class="api-input">
-                                            <input type="text" id="api-key" placeholder="Enter your API key here">
+
+                    <div class="setup-step-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="step-header">
+                            <div class="step-number">02</div>
+                            <div class="step-badge">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <h3>Configure Application</h3>
+                            <p>Launch Voxphere and double-click the microphone component to access settings. Paste your API key in the configuration panel.</p>
+                            <div class="step-visual">
+                                <div class="app-interface">
+                                    <div class="interface-mockup">
+                                        <div class="mic-component">
+                                            <div class="mic-button">
+                                                <i class="fas fa-microphone"></i>
+                                            </div>
+                                            <div class="interaction-hint">
+                                                <span class="hint-text">Double-click</span>
+                                                <div class="click-animation"></div>
+                                            </div>
                                         </div>
-                                        <button class="save-button">Save Settings</button>
+                                        <div class="settings-arrow">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                        <div class="settings-panel-preview">
+                                            <div class="panel-header">Settings</div>
+                                            <div class="api-field">
+                                                <label>API Key</label>
+                                                <div class="input-field"></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="setup-step-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="step-header">
+                            <div class="step-number">03</div>
+                            <div class="step-badge">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <h3>Start Transcribing</h3>
+                            <p>Save your configuration and begin experiencing enterprise-grade voice transcription with industry-leading accuracy.</p>
+                            <div class="step-features">
+                                <div class="feature-item">
+                                    <i class="fas fa-check"></i>
+                                    <span>Real-time processing</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check"></i>
+                                    <span>99%+ accuracy rate</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check"></i>
+                                    <span>Multi-language support</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="setup-step" data-aos="fade-up" data-aos-delay="600">
-                    <div class="step-number">6</div>
-                    <div class="step-content">
-                        <h3>Set API Key and Save</h3>
-                        <p>Paste your Groq API key under "GROQ API KEY" field, click "Save Settings" and you're ready to go!</p>
+
+                <div class="setup-completion" data-aos="fade-up" data-aos-delay="400">
+                    <div class="completion-content">
+                        <div class="completion-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Ready to Transform Your Workflow</h3>
+                        <p>Your Voxphere installation is complete. Experience the future of voice transcription technology.</p>
                     </div>
                 </div>
             </div>
-            
-            <div class="setup-complete" data-aos="fade-up">
-                <div class="success-icon">
-                    <i class="fas fa-check-circle"></i>
+        </div>
+    </section>
+
+    <section class="tips-section" id="tips">
+        <div class="gradient-circle gradient-circle-1"></div>
+        <div class="container">
+            <div class="tips-header" data-aos="fade-up">
+                <h2 class="section-title">Pro Tips & Advanced Features</h2>
+                <p class="section-subtitle">Maximize your productivity with these powerful customization options</p>
+            </div>
+
+            <div class="tips-grid">
+                <div class="tip-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="tip-icon">
+                        <i class="fas fa-arrows-alt"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h3>Drag & Position</h3>
+                        <p>Move Voxphere anywhere on your screen by holding and dragging the outer circumference of the microphone component. Position it perfectly for your workflow.</p>
+                        <div class="tip-highlight">
+                            <i class="fas fa-mouse-pointer"></i>
+                            <span>Hold & drag the outer edge to move</span>
+                        </div>
+                    </div>
                 </div>
-                <h3>You're All Set!</h3>
-                <p>Enjoy blazing-fast, accurate voice transcription powered by Groq's Whisper Large V3.</p>
+
+                <div class="tip-card" data-aos="fade-up" data-aos-delay="150">
+                    <div class="tip-icon">
+                        <i class="fas fa-eye-slash"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h3>Quick Hide</h3>
+                        <p>Instantly hide Voxphere when you need to focus on other tasks. Press the ESC key to quickly minimize the application and bring it back when needed.</p>
+                        <div class="tip-highlight">
+                            <i class="fas fa-keyboard"></i>
+                            <span>Press ESC key to hide/show</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tip-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="tip-icon">
+                        <i class="fas fa-toggle-on"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h3>Interface Mode Selection</h3>
+                        <p>Customize your workflow by selecting the interface mode that suits your needs. Toggle between different modes in the settings to optimize your transcription experience.</p>
+                        <div class="tip-highlight">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Access via Settings → Interface Mode</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tip-card" data-aos="fade-up" data-aos-delay="250">
+                    <div class="tip-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h3>AI Model Selection</h3>
+                        <p>Choose from multiple AI models to match your specific use case. Different models offer varying levels of accuracy, speed, and specialization for different audio types.</p>
+                        <div class="tip-highlight">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Configure in Settings → Model Selection</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tip-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="tip-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="tip-content">
+                        <h3>Multi-Language Support</h3>
+                        <p>Transcribe audio in over 100 languages with high accuracy. Select your preferred language in the settings to get optimized results for your specific linguistic needs.</p>
+                        <div class="tip-highlight">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Available in Settings → Language Selection</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-cta" data-aos="fade-up" data-aos-delay="400">
+                <div class="cta-content">
+                    <h3>Ready to Explore All Features?</h3>
+                    <p>Download Voxphere now and discover the full potential of AI-powered transcription</p>
+                    <a href="#download" class="button button-primary">
+                        <i class="fas fa-download"></i> Download Now
+                    </a>
+                </div>
             </div>
         </div>
     </section>
